@@ -1,0 +1,30 @@
+#! shapeframe-shape
+about: Redmine (Project Management Application)
+build:
+  on: passenger (https://github.com/engines/webservers)
+  do:
+    - npm
+    - gems
+    - app
+  stage:
+    - as: compile
+      from: golang-2.1
+      do:
+        - build
+connect:
+  - to: database
+    of:
+      - postgres (https://github.com/engines/databases)
+      - mysql (https://github.com/engines/databases)
+      - microsoft-sql-server (https://github.com/engines/databases)
+package:
+  apt:
+    - npm
+    - nodejs
+    - imagemagick
+    - libmagickwand-dev
+    - git
+    - libxml2
+    - libxml2-dev
+  git:
+    - https://github.com/edavis10/redmine.git > /var/www/redmine
