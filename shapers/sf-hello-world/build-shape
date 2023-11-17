@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'erb'
+require 'open3'
+
+exitStatus = 0
+
+shape = YAML.load_file("shape.yaml")
+
+Dir.chdir("shape") do
+    template = ERB.new File.read("config.yaml.erb")
+    File.write("config.yaml", template.result(binding)) 
+    Open3.popen2e("bundle") do |stdin, stdout_and_stderr, thread|
+        stdout_and_stderr.each do |line| 
+            STDOUT.write_nonblock(line)
+        end
+        exitStatus = thread.value.exitstatus
+    end
+end    
+
+exit(exitStatus)

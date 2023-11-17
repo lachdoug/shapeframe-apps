@@ -1,0 +1,15 @@
+FROM <%= dockerfile.from %>
+COPY "/" "/.shapeframe"
+<% dockerfile.cmds.each do |cmd| -%>
+<% if cmd[0] == "exec" -%>
+RUN <%= cmd.drop(1) %>
+<% elsif cmd[0] == "wdir" -%>
+WORKDIR <%= cmd.drop(1).join('/') %>
+<% else -%>
+<% raise "invalid instruction #{cmd}" %>
+<% end -%>
+<% end -%>
+<% dockerfile.exposes.each do |expose| -%>
+EXPOSE <%= expose %>
+<% end -%>
+CMD <%= dockerfile.entrypoint %>

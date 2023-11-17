@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'pathname'
+
+compose = {"version" => "2", "services" => {}}
+
+def load_shape(shape_name)
+    YAML.load_file(File.join("shapes", shape_name, "shape.yaml"))
+end
+
+def service(shape_name)
+    {}.tap do |service|
+        load_shape(shape_name).tap do |shape|
+            service["restart"] = shape["config"]["frame-shape"]["restart"] || "no"
+            if service["restart"] == "on-failure"
+                service["restart"] = service["restart"] + 
+                ":#{shape["config"]["frame-shape"]["restart-on-failue"]}"
+            end
+            service["build"] = File.join("shapes", shape_name)            
+            service["image"] = shape["identifier"]            
+            service["container_name"] = shape["identifier"]            
+            service["ports"] = shape["ports"].map{|p| "#{p[1]}:#{p[1]}"}            
+        end
+    end
+end
+
+Dir.glob('*', base: "shapes").each do |shape_name|
+    compose["services"][shape_name] = service(shape_name)
+end
+
+output = compose.to_yaml
+puts "Docker Compose:"
+puts output
+File.write("compose.yaml", output)

@@ -1,0 +1,18 @@
+about: Web Server, Reverse Proxy and Load Balanacer
+# config:
+# connect:
+#   - to: gateway
+#     config:
+#       - key: fqdn
+#         set: domain.fqdn
+#       - key: protocol
+#         type: strings
+#         default: https
+#         as: checkboxes
+#         options:
+#           - https
+#           - http
+#       - key: subdomain
+#         set: binder.identifier^^",
+#       - "ip_address": "^^consumer.ip_address^^",
+#       "port": null

@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'open3'
+require 'erb'
+require 'ostruct'
+
+exitStatus = 0
+
+shape = YAML.load_file("shape.yaml")
+
+dockerfile = OpenStruct.new(
+    from: shape["build"]["on"] == "" ? "scratch" : shape["build"]["on"],
+    cmds: shape["build"]["do"],
+    entrypoint: shape["start"],
+    exposes: shape["ports"].map{|p| "#{p[1]}/#{p[0]}"},
+    volumes: shape["volumes"],
+)
+
+template = ERB.new(File.read(File.join("frame-shape", "image.erb")), trim_mode: '-')
+
+output = template.result(binding)
+puts "Dockerfile:"
+puts output
+File.write("Dockerfile", output)
+
+command = "docker build --tag #{shape["identifier"]} ."
+
+puts("execute: #{command}")
+
+Open3.popen2e(command) do |stdin, stdout_and_stderr, thread|
+    stdout_and_stderr.each_line do |line| 
+        STDOUT.write_nonblock(line)
+    end
+    exitStatus = thread.value.exitstatus
+end
+
+exit(exitStatus)

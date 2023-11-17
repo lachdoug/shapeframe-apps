@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+require 'open3'
+
+exitStatus = 0
+
+command = "docker compose down --remove-orphans"
+
+Open3.popen2e(command) do |stdin, stdout_and_stderr, thread|
+    stdout_and_stderr.each do |line| 
+        STDOUT.write_nonblock(line)
+    end
+    exitStatus = thread.value.exitstatus
+end
+
+exit(exitStatus)

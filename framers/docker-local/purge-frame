@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require 'open3'
+
+exitStatus = 0
+
+frame_shape_names = Dir.glob('*', base: "shapes")
+
+all_container_names = `docker ps --all --format "{{.Names}}"`
+
+puts ("Frame shape names")
+puts frame_shape_names
+puts ("All container names")
+puts all_container_names
+
+# Open3.popen2e("docker system prune --all --force") do |stdin, stdout_and_stderr, thread|
+#     stdout_and_stderr.each do |line| 
+#         STDOUT.write_nonblock(line)
+#     end
+#     exitStatus = thread.value.exitstatus
+# end
+
+exit(exitStatus)

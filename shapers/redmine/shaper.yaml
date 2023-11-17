@@ -1,16 +1,20 @@
 #! shapeframe-shape
 about: Redmine (Project Management Application)
-deploy:
-  on: passenger (https://github.com/engines/webservers)
-  do:
+config:
+  - key: color
+    default: blue
+    type: string
+build:
+  stage:
+    - as: compile
+      do:
+        - install-dependencies
+        - build-binary
+  on: passenger
+  run:
     - npm
     - gems
     - app
-  pre:
-    - for: compile
-      with: golang
-      do:
-        - build-binary
   start: rails s
 # expose:
 #   in:
@@ -20,9 +24,13 @@ deploy:
 connect:
   - to: database
     take:
-      - postgres (https://github.com/engines/databases)
-      - mysql (https://github.com/engines/databases)
-      - microsoft-sql-server (https://github.com/engines/databases)
+      - postgres:database
+      - mysql
+      - microsoft-sql-server
+  - to: gateway
+    take:
+      - nginx:gateway
+
 # package:
 #   apt:
 #     - npm

@@ -1,0 +1,4 @@
+about: Empty (Test Application)
+build:
+  on: ubuntu
+start: [echo, hi]

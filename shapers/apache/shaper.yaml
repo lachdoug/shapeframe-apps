@@ -1,1 +1,12 @@
-about: Apache (Web Server)
+about: Apache (Web Server!)
+shape:
+  - key: color
+    default: red
+    required: true
+  - key: foo
+    label: Foo
+    default: ok
+    required: true
+  - key: bar
+    default: 2
+start: [echo, Start Apache]

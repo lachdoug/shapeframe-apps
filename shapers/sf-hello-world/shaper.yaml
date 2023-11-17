@@ -1,0 +1,17 @@
+about: Hello World (Test Application)
+shape:
+  - key: name
+    label: Name
+    default: world!
+    required: true
+build:
+  on: ruby
+  do:
+    - [wdir, .shapeframe/shape]
+    - [exec, bundle]
+start: [ruby, hello-world.rb]
+ports:
+  - [tcp, 3000]
+volumes:
+  - [data, "s:w"]
+  - [".shapeframe/shape/vendor/bundle", ":w"]

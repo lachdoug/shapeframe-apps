@@ -1,1 +1,30 @@
 about: Deploy containers on local Docker Engine
+frame:
+  - key: color
+    default: blue
+    label: Color
+    type: string
+  - key: bar
+    type: string
+    required: true
+  - key: foo
+    type: string
+    required: true
+shape:
+  - key: restart
+    label: Restart policy
+    type: selection
+    as: radios
+    options:
+      no: Do not restart
+      on-failue: A number of times
+      always: Always restart
+      unless-stopped: Always restart unless stopped
+    required: true
+  - key: restart-on-failue
+    label: Number of restart attempts
+    type: number
+    required: true
+    depend:
+      on: restart
+      pattern: on-failure
