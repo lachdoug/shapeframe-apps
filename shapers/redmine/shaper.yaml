@@ -1,5 +1,7 @@
 #! shapeframe-shape
 about: Redmine (Project Management Application)
+start: [echo, Start Apache]
+
 config:
   - key: color
     default: blue
@@ -30,7 +32,6 @@ connect:
   - to: gateway
     take:
       - nginx:gateway
-
 # package:
 #   apt:
 #     - npm

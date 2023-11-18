@@ -1,4 +1,5 @@
 about: Web Server, Reverse Proxy and Load Balanacer
+start: [echo, Start Nginx]
 # config:
 # connect:
 #   - to: gateway

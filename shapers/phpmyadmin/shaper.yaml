@@ -1,2 +1,3 @@
 about: phpMyAdmin (Database Administration Utility)
-on: apache
+# on: apache
+start: [echo, Start phpMyAdmin]
