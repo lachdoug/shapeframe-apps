@@ -9,4 +9,6 @@ shape:
     required: true
   - key: bar
     default: 2
+build:
+  on: alpine
 start: [echo, Start Apache]

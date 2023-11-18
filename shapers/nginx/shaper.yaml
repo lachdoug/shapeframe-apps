@@ -1,4 +1,6 @@
 about: Web Server, Reverse Proxy and Load Balanacer
+build:
+  on: alpine
 start: [echo, Start Nginx]
 # config:
 # connect:

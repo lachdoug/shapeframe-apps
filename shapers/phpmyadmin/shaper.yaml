@@ -1,3 +1,5 @@
 about: phpMyAdmin (Database Administration Utility)
 # on: apache
+build:
+  on: alpine
 start: [echo, Start phpMyAdmin]
