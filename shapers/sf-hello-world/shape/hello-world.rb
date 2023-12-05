@@ -9,8 +9,9 @@ puts Dir.entries(".")
 puts "Woooo!!!!"
 
 config = YAML.load_file("config.yaml")
-
+name = config["name"]
+name = "world!" if name.empty?
 
 get '/' do
-    "Hello, #{config["name"]}"
+    "Hello, #{name}"
 end

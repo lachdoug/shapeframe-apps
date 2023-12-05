@@ -4,10 +4,13 @@ require 'open3'
 require 'erb'
 require 'ostruct'
 
+# Set the default exit code
 exitStatus = 0
 
+# Load shape data...
 shape = YAML.load_file("shape.yaml")
 
+# ...into a struct that represents the shape as a Containerfile.
 dockerfile = OpenStruct.new(
     from: shape["build"]["on"] == "" ? "scratch" : shape["build"]["on"],
     cmds: shape["build"]["do"],

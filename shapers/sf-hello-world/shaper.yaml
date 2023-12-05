@@ -1,9 +1,43 @@
 about: Hello World (Test Application)
 shape:
-  - key: name
-    label: Name
-    default: world!
-    required: true
+  - type: row
+    cols:
+      - key: name
+        label: Name
+        default: world!
+        required: true
+        width: 8
+      - key: age
+        label: Age
+        default: "50"
+        required: true
+        pattern: "^40$"
+        invalid: must be 40
+        width: 4
+  - key: fruit
+    type: select
+    # as: radios
+    label: Fruit
+    default: "banana"
+    options:
+      - value: apple
+        label: Apple
+      - value: banana
+        label: Banana
+      - value: orange
+        label: Orange
+      - value: lemon
+        label: Lemon
+  - type: row
+    cols:
+      - key: colour
+        width: 6
+        required: true
+        depend:
+          key: fruit
+          pattern: ^banana$
+      - key: length
+        width: 6
 build:
   on: ruby
   do:
