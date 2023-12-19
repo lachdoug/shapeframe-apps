@@ -11,10 +11,10 @@ end
 def service(shape_name)
     {}.tap do |service|
         load_shape(shape_name).tap do |shape|
-            service["restart"] = shape["config"]["frame-shape"]["restart"] || "no"
+            service["restart"] = shape["settings"]["frame"]["restart"] || "no"
             if service["restart"] == "on-failure"
                 service["restart"] = service["restart"] + 
-                ":#{shape["config"]["frame-shape"]["restart-on-failue"]}"
+                ":#{shape["settings"]["frame"]["restart-on-failue"]}"
             end
             service["build"] = File.join("shapes", shape_name)            
             service["image"] = shape["identifier"]            

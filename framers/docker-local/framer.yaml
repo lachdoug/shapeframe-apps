@@ -1,31 +1,11 @@
 about: Deploy containers on local Docker Engine
 frame:
-  - key: color
-    type: selection
-    default: blue
-    label: Color
+  - key: Host
     required: true
-    options:
-      - value: red
-        label: Red
-      - value: blue
-        label: Blue
-      - value: green
-        label: Green
-  - key: bar
-    type: string
-    required: true
-    pattern: "^1$"
-    invalid: "must be 1"
-  - key: foo
-    # type: secret
-    required: true
-  - key: wow
-    type: text
-    required: true
+    pattern: ^\d+\.\d+\.\d+\.\d+$
 shape:
   - key: restart
-    label: Restart policy
+    label: Restart Policy
     type: select
     as: radios
     required: true

@@ -4,14 +4,10 @@ require 'yaml'
 set :bind, '0.0.0.0'
 set :port, 3000
 
-puts Dir.getwd
-puts Dir.entries(".")
-puts "Woooo!!!!"
-
 config = YAML.load_file("config.yaml")
 name = config["name"]
-name = "world!" if name.empty?
+age = config["age"]
 
 get '/' do
-    "Hello, #{name}"
+    "Hello, #{name} (#{age})"
 end
