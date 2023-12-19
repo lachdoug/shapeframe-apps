@@ -3,12 +3,6 @@ shape:
   - key: color
     default: red
     required: true
-  - key: foo
-    label: Foo
-    default: ok
-    required: true
-  - key: bar
-    default: 2
 build:
   on: alpine
 start: [echo, Start Apache]
